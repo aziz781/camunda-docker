@@ -8,7 +8,15 @@ Create a dockerised environment for Camunda running application and database in 
 * Use docker Vouume for data storing
 * Use postgressql database and run as docker container
 
-# Containers
+
+# Using Persistent Data
+Using Docker volume, the databse container data is persisted on the host so if container is removed or re-created the data is not lost as It's outside the container. That can be extened to put the data on remote host, cloud provider and also can be encrypted
+
+# Using Network
+Application and databse containers communication is enabled using docker bridge network.This is secured way and only this camunda application can communicate to database container.
+
+
+# Containers  [APP, DB]
 ```
 CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS          PORTS                                                                      NAMES
 99d8b6f5b684   camunda/app              "/sbin/tini -- ./cam…"   11 seconds ago   Up 10 seconds   8000/tcp, 9404/tcp, 0.0.0.0:8081->8080/tcp, :::8081->8080/tcp              camunda
@@ -16,7 +24,7 @@ CONTAINER ID   IMAGE                    COMMAND                  CREATED        
 ```
 
 
-# Images
+# Images [APP, DB]
 ```
 REPOSITORY                     TAG       IMAGE ID       CREATED          SIZE
 camunda/app                    latest    71b15e4b4be7   12 minutes ago   259MB
@@ -25,7 +33,7 @@ camunda/db                     latest    1f8fce7686db   12 minutes ago   315MB
 
 
 
-# Database Container
+# Database Container Running
 ```
 PostgreSQL init process complete; ready for start up.
 
@@ -37,7 +45,7 @@ PostgreSQL init process complete; ready for start up.
 2021-07-14 12:08:46.979 UTC [1] LOG:  database system is ready to accept connections
 ```
 
-# Camunda Application Container
+# Camunda Application Container Running
 ```
 Configure database
 wait-for-it.sh: waiting 30 seconds for db:5432
@@ -51,3 +59,7 @@ wait-for-it.sh: db:5432 is available after 1 seconds
 14-Jul-2021 12:23:59.714 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/camunda/webapps/ROOT] has finished in [896,744] ms
 14-Jul-2021 12:23:59.936 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/camunda/webapps/camunda]
 ```
+
+# Build and Deploy Docker Container
+We have created a `Dockerfile` and `build.sh` script for building and deploy  camunda as docker containers. And for `cleanup.sh` for enviroment cleanup.
+

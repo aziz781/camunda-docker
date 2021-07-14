@@ -61,5 +61,5 @@ wait-for-it.sh: db:5432 is available after 1 seconds
 ```
 
 # Build and Deploy Docker Container
-We have created a `Dockerfile` and `build.sh` script for building and deploy  camunda as docker containers. And for `cleanup.sh` for enviroment cleanup.
+We have created a `Dockerfile` and `build-deploy.sh` bash script for building and deploy  camunda as docker containers. And for `cleanup.sh` for enviroment cleanup.
 

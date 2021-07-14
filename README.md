@@ -94,3 +94,35 @@ camunda/app
 # Build and Deploy Docker Container
 We have created a `Dockerfile` and `build-deploy.sh` bash script for building and deploy  camunda as docker containers. And for `cleanup.sh` for enviroment cleanup.
 
+
+
+# Code Review 
+https://github.com/UKHomeOffice/cop-secrets
+
+• How the project has been done
+• The structure in place
+• Any improvements that you would suggest? What would you prioritise or refactor?
+
+## Code Review Comments:
+
+The structue could be improves and  payhon code can be refactor using object oriented
+
+It's seems not very good structured and payhon code can be refactor using object oriented,
+It's `not readable`, and would be `difficult to maintain` and has `less comments` 
+
+* some improvements:*
+
+In `secret.py` This big function `processAWSSecret` could be refatored in specific functions
+could be
+* listAWSSecret
+* updateAWSSecret
+* removeAWSSecret
+
+This class `repo_secrets.py` has only one function could be move into 'secrets.py'
+listRepoSecret
+
+methon name should be with `under_scores` instead of `camelCase` as python best practice
+
+The python code can be refactor as `Object Oriented` aswell
+
+

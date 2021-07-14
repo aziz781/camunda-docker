@@ -60,6 +60,37 @@ wait-for-it.sh: db:5432 is available after 1 seconds
 14-Jul-2021 12:23:59.936 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/camunda/webapps/camunda]
 ```
 
+# Build
+```
+docker build --target DB -t camunda/db \
+--build-arg  DBUSER=$CAMUNDA_USER  \
+--build-arg  DBPWD=$CAMUNDA_PASSWORD  \
+--build-arg  DBNAME=$CAMUNDA_DB .
+```
+
+```
+docker build --target APP -t camunda/app \
+--build-arg  DBUSER=$CAMUNDA_USER  \
+--build-arg DBPWD=$CAMUNDA_PASSWORD  \
+--build-arg  DBNAME=$CAMUNDA_DB  . 
+```
+
+# Run
+```
+docker run --name db \
+--net camunda-db-bridge \
+-d -p 5432:5432 \
+-v $CAMUNDA_DATA:/var/lib/postgresql/data \
+camunda/db
+```
+
+```
+docker run -d --name camunda \
+--net camunda-db-bridge \
+-p 8081:8080 \
+camunda/app
+```
+
 # Build and Deploy Docker Container
 We have created a `Dockerfile` and `build-deploy.sh` bash script for building and deploy  camunda as docker containers. And for `cleanup.sh` for enviroment cleanup.
 
